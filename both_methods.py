@@ -216,12 +216,16 @@ def query_sparse(query_text, sparse_collection, top_k=5):
     # Get the corresponding documents and metadata
     top_docs = [documents[i] for i in top_indices]
     top_metadata = [metadatas[i] for i in top_indices]
-    
+
+    # Extract IDs from metadata if available
+    ids = [metadata.get("id", f"doc_{i}") for i, metadata in enumerate(metadatas)]
+
     # Return in same format as dense embeddings for consistency
     return {
         "documents": [top_docs],
         "metadatas": [top_metadata],
-        "scores": [top_scores]
+        "scores": [top_scores],
+        "ids": [ids]  # Added IDs to the return value
     }
 
 def generate_response(question, relevant_chunks):

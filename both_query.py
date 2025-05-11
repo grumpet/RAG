@@ -34,15 +34,17 @@ def query_db(query_text: str, method: str = "dense", top_k: int = 5, show_chunks
         
         if show_chunks:
             print(f"\nTop {top_k} chunks retrieved:")
-            for i, (doc, metadata, distance) in enumerate(zip(
+            for i, (doc, metadata, distance,id) in enumerate(zip(
                 results["documents"][0], 
                 results["metadatas"][0],
-                results["distances"][0]
+                results["distances"][0],
+                results["ids"][0]
             )):
+                print(f"Chunk ID: {id}")
                 print(f"\n--- Result {i+1} (distance: {distance:.4f}) ---")
                 print(f"Source: {metadata['source']}, Chunk: {metadata['chunk_id']}")
-                print(f"Text: {doc[:200]}..." if len(doc) > 200 else f"Text: {doc}")
-        
+                print(f"Text: \b{doc}")
+
         # Generate response with context
         response = generate_response(query_text, results["documents"][0])
         
@@ -52,14 +54,16 @@ def query_db(query_text: str, method: str = "dense", top_k: int = 5, show_chunks
         
         if show_chunks:
             print(f"\nTop {top_k} chunks retrieved:")
-            for i, (doc, metadata, score) in enumerate(zip(
-                results["documents"][0], 
+            for i, (doc, metadata, score, id) in enumerate(zip(
+                results["documents"][0],
                 results["metadatas"][0],
-                results["scores"][0]
+                results["scores"][0],
+                results["ids"][0]
             )):
+                print(f"Chunk ID: {id}")
                 print(f"\n--- Result {i+1} (score: {score:.4f}) ---")
                 print(f"Source: {metadata['source']}, Chunk: {metadata['chunk_id']}")
-                print(f"Text: {doc[:200]}..." if len(doc) > 200 else f"Text: {doc}")
+                print(f"Text:\n {doc}")
         
         # Generate response with context
         response = generate_response(query_text, results["documents"][0])
