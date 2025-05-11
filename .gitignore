@@ -1,0 +1,15 @@
+/venv
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.pyd
+/chroma_db
+*.log
+*.json
+/chroma_persistent_storage
+/TEE_DATA
+/news_articles
