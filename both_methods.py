@@ -108,7 +108,7 @@ def safe_json_parse(response):
         # Return empty result as fallback
         return {}
 
-def query_embeddings(text, model="llama2", retries=3):
+def query_embeddings(text, model="llama3", retries=3):
     """Get embeddings with retry mechanism"""
     url = "http://localhost:11434/api/embeddings"
     data = {
